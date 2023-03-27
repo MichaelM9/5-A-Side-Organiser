@@ -31,3 +31,18 @@ Organising a game of football between friends should be a care free process, how
 - Post game poles (Player of the Match, best goal etc.)
 - Player ratings for team allocation balance
 - User payment?
+
+## Domain Model
+
+```mermaid
+flowchart
+USER --- GROUP
+GROUP --- ADMIN
+GROUP --- ORGANISER
+GROUP --- PLAYER
+ORGANISER --- GAME
+PLAYER --- GAME
+GAME --- DATE
+GAME --- TIME
+GAME --- LOCATION
+```
