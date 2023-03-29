@@ -18,7 +18,7 @@ Organising a game of football between friends should be a care free process, how
 
 ## MVP
 
-- Creation of user accounts and login page
+- User accounts and login page
 - Football group creation with user invitation
 - User Roles within groups i.e. Admin, Organiser and Player
 - Football game setup (dates, times, locations, no. of players etc.) by Organiser
@@ -36,15 +36,56 @@ Organising a game of football between friends should be a care free process, how
 
 ```mermaid
 flowchart
-USER --- GROUP
-GROUP --- ADMIN
-GROUP --- ORGANISER
-GROUP --- PLAYER
-ORGANISER --- GAME
-PLAYER --- GAME
-PLAYER --- TEAM
-GAME --- DATE
-GAME --- TIME
-GAME --- LOCATION
-GAME --- TEAM
+USER --- ADMIN
+USER --- PLAYER
+ADMIN --- GROUP
+PLAYER --- GROUP
+GROUP --- GAME
+GAME --- TEAM_SHEET
+PLAYER --- TEAM_SHEET
+```
+
+## ERD
+
+```mermaid
+erDiagram
+user ||--o{ admin : ""
+user ||--o{ player : ""
+admin }o--|| group : ""
+player }o--|| group : ""
+group ||--|| game : ""
+game ||--|| team_sheet : ""
+player }o--|| team_sheet : ""
+
+user {
+    serial id PK
+    varchar user_name
+    varchar user_email
+    varchar user_password
+}
+admin {
+    serial id PK
+    int user_id FK
+    int group_id FK
+}
+player {
+    serial id PK
+    int user_id FK
+    int group_id FK
+}
+group {
+    serial id PK
+    varchar group_name
+}
+game {
+    serial id PK
+    date game_date
+    timestamp game_time
+    varchar game_location
+}
+team_sheet {
+    int game_id FK
+    array player_id FK
+    boolean team
+}
 ```
