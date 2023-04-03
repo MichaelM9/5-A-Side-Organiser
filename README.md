@@ -53,7 +53,7 @@ user ||--o{ admin : ""
 user ||--o{ player : ""
 admin }o--|| group : ""
 player }o--|| group : ""
-group ||--|| game : ""
+group ||--o{ game : ""
 game ||--|| team_sheet : ""
 player }o--|| team_sheet : ""
 
