@@ -41,8 +41,8 @@ USER --- PLAYER
 ADMIN --- GROUP
 PLAYER --- GROUP
 GROUP --- GAME
-GAME --- TEAM_SHEET
-PLAYER --- TEAM_SHEET
+GAME --- GAME_PLAYER
+PLAYER --- GAME_PLAYER
 ```
 
 ## ERD
@@ -54,14 +54,14 @@ user ||--o{ player : ""
 admin }o--|| group : ""
 player }o--|| group : ""
 group ||--o{ game : ""
-game ||--|| team_sheet : ""
-player }o--|| team_sheet : ""
+game ||--|| game_player : ""
+player }o--|| game_player : ""
 
 user {
     serial id PK
-    varchar user_name
-    varchar user_email
-    varchar user_password
+    varchar name
+    varchar email
+    varchar password
 }
 admin {
     serial id PK
@@ -75,17 +75,17 @@ player {
 }
 group {
     serial id PK
-    varchar group_name
+    varchar name
 }
 game {
     serial id PK
-    date game_date
-    timestamp game_time
-    varchar game_location
+    date date
+    timestamp time
+    varchar location
 }
-team_sheet {
+game_player {
+    serial id PK
     int game_id FK
     array player_id FK
-    boolean team
 }
 ```
