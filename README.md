@@ -53,7 +53,7 @@ role ||--o{ user_group_role: ""
 user_group_role }o--|| group : ""
 group ||--o{ game : ""
 game ||--|| game_player : ""
-user_group_role }o--|| game_player : ""
+user_group_role }o--|| game_user_group_role : ""
 
 user {
     serial id PK
@@ -84,6 +84,6 @@ game {
 game_player {
     serial id PK
     int game_id FK
-    array player_id FK
+    int user_group_role_id FK
 }
 ```
