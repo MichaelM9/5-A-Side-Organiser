@@ -81,7 +81,7 @@ game {
     timestamp time
     varchar location
 }
-game_player {
+game_user_group_role {
     serial id PK
     int game_id FK
     int user_group_role_id FK
