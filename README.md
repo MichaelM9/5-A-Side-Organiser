@@ -65,7 +65,7 @@ role {
     serial id PK
     varchar name
 }
-player {
+user_group_role {
     serial id PK
     int user_id FK
     int group_id FK
