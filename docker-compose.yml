@@ -1,0 +1,17 @@
+version: "3.4"
+services:
+  db:
+    image: postgres:latest
+    container_name: 5asideorganiser_db
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    name: 5asideorganiser_db
