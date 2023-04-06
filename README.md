@@ -40,8 +40,8 @@ USER --- USER_GROUP_ROLE
 ROLE --- USER_GROUP_ROLE
 USER_GROUP_ROLE --- GROUP
 GROUP --- GAME
-GAME --- GAME_PLAYER
-USER_GROUP_ROLE --- GAME_PLAYER
+GAME --- GAME_USER_GROUP_ROLE
+USER_GROUP_ROLE --- GAME_USER_GROUP_ROLE
 ```
 
 ## ERD
@@ -52,7 +52,7 @@ user ||--o{ user_group_role : ""
 role ||--o{ user_group_role: ""
 user_group_role }o--|| group : ""
 group ||--o{ game : ""
-game ||--|| game_player : ""
+game ||--|| game_user_group_role : ""
 user_group_role }o--|| game_user_group_role : ""
 
 user {
