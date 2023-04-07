@@ -5,12 +5,12 @@ email varchar NOT NULL,
 password varchar NOT NULL
 );
 
-CREATE TABLE player_role (
+CREATE TABLE user_role (
 id serial PRIMARY KEY,
-type varchar NOT NULL
+description varchar NOT NULL
 );
 
-CREATE TABLE player_group (
+CREATE TABLE user_group (
 id serial PRIMARY KEY,
 name varchar NOT NULL
 );
@@ -21,15 +21,17 @@ user_id integer NOT NULL,
 group_id integer NOT NULL,
 role_id integer NOT NULL,
 CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app_user(id),
-CONSTRAINT fk_group FOREIGN KEY (group_id) REFERENCES player_group(id),
-CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES player_role(id)
+CONSTRAINT fk_group FOREIGN KEY (group_id) REFERENCES user_group(id),
+CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES user_role(id)
 );
 
 CREATE TABLE game (
 id serial PRIMARY KEY,
+group_id integer NOT NULL,
 game_date date NOT NULL,
 game_time time NOT NULL,
-location varchar NOT NULL
+game_location varchar NOT NULL,
+CONSTRAINT fk_group FOREIGN KEY (group_id) REFERENCES user_group(id)
 );
 
 CREATE TABLE game_user_group_role (

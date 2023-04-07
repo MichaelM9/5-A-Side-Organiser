@@ -37,9 +37,9 @@ Organising a game of football between friends should be a care free process, how
 ```mermaid
 flowchart
 APP_USER --- USER_GROUP_ROLE
-PLAYER_ROLE --- USER_GROUP_ROLE
-USER_GROUP_ROLE --- PLAYER_GROUP
-PLAYER_GROUP --- GAME
+USER_ROLE --- USER_GROUP_ROLE
+USER_GROUP_ROLE --- USER_GROUP
+USER_GROUP --- GAME
 GAME --- GAME_USER_GROUP_ROLE
 USER_GROUP_ROLE --- GAME_USER_GROUP_ROLE
 ```
@@ -49,9 +49,9 @@ USER_GROUP_ROLE --- GAME_USER_GROUP_ROLE
 ```mermaid
 erDiagram
 app_user ||--o{ user_group_role : ""
-player_role ||--o{ user_group_role: ""
-user_group_role }o--|| player_group : ""
-player_group ||--o{ game : ""
+user_role ||--o{ user_group_role: ""
+user_group_role }o--|| user_group : ""
+user_group ||--o{ game : ""
 game ||--|| game_user_group_role : ""
 user_group_role }o--|| game_user_group_role : ""
 
@@ -61,7 +61,7 @@ app_user {
     varchar email
     varchar password
 }
-player_role {
+user_role {
     serial id PK
     varchar name
 }
@@ -71,12 +71,13 @@ user_group_role {
     int group_id FK
     int role_id FK
 }
-player_group {
+user_group {
     serial id PK
     varchar name
 }
 game {
     serial id PK
+    int group_id FK
     date date
     timestamp time
     varchar location
