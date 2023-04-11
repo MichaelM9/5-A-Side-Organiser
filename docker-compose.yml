@@ -2,7 +2,7 @@ version: "3.4"
 services:
   db:
     image: postgres:latest
-    container_name: 5asideorganiser_db
+    container_name: 5-a-side-organiser_db
     restart: always
     ports:
       - "5433:5432"
@@ -12,6 +12,14 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - db:/var/lib/postgresql/data
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://db/postgres -schemas=public -user=user
+      -password=password -connectRetries=5 migrate
+    volumes:
+      - ./database:/flyway/sql
+    depends_on:
+      - db
 volumes:
   db:
-    name: 5asideorganiser_db
+    name: 5-a-side-organiser_db
