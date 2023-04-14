@@ -57,7 +57,8 @@ user_group_role }o--|| game_user_group_role : ""
 
 app_user {
     serial id PK
-    varchar name
+    varchar first_name
+    varchar last_name
     varchar email
     varchar password
 }
@@ -86,5 +87,152 @@ game_user_group_role {
     serial id PK
     int game_id FK
     int user_group_role_id FK
+}
+```
+
+## API Design
+
+### Users
+
+`GET /users` Returns a list of all current users
+
+Response `200 OK`
+
+```json
+[
+  {
+    "id": 1,
+    "firstName": "Michael",
+    "lastName": "Mackin",
+    "email": "michaelmackin@email.com",
+    "password": "ljhg3453hj4g52345h"
+  },
+  {
+    "id": 2,
+    "firstName": "Marcus",
+    "lastName": "Rashford",
+    "email": "mrashford@email.com",
+    "password": "89adf7gasf90g8asf80a7g"
+  }
+]
+```
+
+`GET /user/{user-id}` Returns a user by the respective id
+
+Response `200 OK`
+
+```json
+{
+  "id": 1,
+  "firstName": "Michael",
+  "lastName": "Mackin",
+  "email": "michaelmackin@email.com"
+}
+```
+
+`POST /user` Adds a new user
+
+Response `201 CREATED`
+
+```json
+{
+  "firstName": "Lionel",
+  "lastName": "Messi",
+  "email": "lmessi@email.com",
+  "password": "45h6g7f54h6kg7f5467"
+}
+```
+
+`PUT /user/{user-id}` Updates a user by the respective id
+
+Response `200 OK`
+
+```json
+{
+  "firstName": "Lionel",
+  "lastName": "Messi",
+  "email": "lmessi123@email.com"
+}
+```
+
+---
+
+### Groups
+
+`GET /groups/{user-id}` Returns a list of all groups by user id
+
+Response `200 OK`
+
+```json
+[
+  {
+    "name": "Premier League"
+  }
+]
+```
+
+`POST /group` Adds a group
+
+Response `201 CREATED`
+
+```json
+{
+  "name": "La Liga"
+}
+```
+
+`DELETE /groups/{group-id}` Deletes a group by its group id
+
+Response `204 NO CONTENT`
+
+---
+
+### Games
+
+`GET /games/{group-id}` Returns a list of all games by group id
+
+Reponse `200 OK`
+
+```json
+[
+  {
+    "date": "2023-1-1",
+    "time": "12:00:00",
+    "location": "Old Trafford"
+  },
+  {
+    "date": "2023-1-2",
+    "time": "15:00:00",
+    "location": "Anfield"
+  },
+  {
+    "date": "2023-1-2",
+    "time": "17:30:00",
+    "location": "Stamford Bridge"
+  }
+]
+```
+
+`GET /games/{game-id}` Returns a game by the respective game
+
+Response `200 OK`
+
+```json
+{
+  "date": "2023-1-1",
+  "time": "12:00:00",
+  "location": "Old Trafford"
+}
+```
+
+`POST /games` Adds a game
+
+Response `201 CREATED`
+
+```json
+{
+  "date": "2023-1-2",
+  "time": "14:00:00",
+  "location": "Ethiad"
 }
 ```

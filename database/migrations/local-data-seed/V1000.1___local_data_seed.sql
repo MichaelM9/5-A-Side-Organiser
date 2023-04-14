@@ -10,21 +10,21 @@ DECLARE GAME_ID integer;
 
 BEGIN
 	
-	INSERT INTO app_user ("name", email, password) VALUES
-		('Michael Mackin', 'michaelmackin@email.com', 'password1'),
-		('John Doe', 'johndoe@email.com', 'password2'),
-		('Jack Doe', 'jackdoe@email.com', 'password3'),
-		('Jane Doe', 'janedoe@email.com', 'password4'),
-		('Xavi', 'xavi@barcelona.com', 'campnou'),
-		('Luca Modric', 'lmodric@realmadrid.com', 'bernabeu'),
-		('Antoine Griezmann', 'agriezmann@athletico.com', 'metropolitan'),
-		('Jesus Navas', 'jnavas@sevilla.com', 'ramonsanchez'),
-		('Pep Guardiola', 'pguardiola@mancity.com', 'ethiad'),
-		('Mikel Arteta', 'marteta@arsenal.com', 'emirates'),
-		('Mohamad Salah', 'msalah@liverpool.com', 'anfield'),
-		('Marcus Rashford', 'mrashford@manutd.com', 'oldtrafford'),
-		('Harry Kane', 'hkane@spurs.com', 'whiteheartlane'),
-		('Reece James', 'rjames@chelsea.com', 'stamfordbridge');
+	INSERT INTO app_user (first_name, last_name, email, password) VALUES
+		('Michael', 'Mackin', 'michaelmackin@email.com', 'password1'),
+		('John', 'Doe', 'johndoe@email.com', 'password2'),
+		('Jack', 'Doe', 'jackdoe@email.com', 'password3'),
+		('Jane', 'Doe', 'janedoe@email.com', 'password4'),
+		('Xavi', 'Hernandez', 'xavi@barcelona.com', 'campnou'),
+		('Luca', 'Modric', 'lmodric@realmadrid.com', 'bernabeu'),
+		('Antoine', 'Griezmann', 'agriezmann@athletico.com', 'metropolitan'),
+		('Jesus', 'Navas', 'jnavas@sevilla.com', 'ramonsanchez'),
+		('Pep', 'Guardiola', 'pguardiola@mancity.com', 'ethiad'),
+		('Mikel', 'Arteta', 'marteta@arsenal.com', 'emirates'),
+		('Mohamad', 'Salah', 'msalah@liverpool.com', 'anfield'),
+		('Marcus', 'Rashford', 'mrashford@manutd.com', 'oldtrafford'),
+		('Harry', 'Kane', 'hkane@spurs.com', 'whiteheartlane'),
+		('Reece', 'James', 'rjames@chelsea.com', 'stamfordbridge');
 
 	INSERT INTO user_group ("name") VALUES
 		('Unosquare Football Group'),
