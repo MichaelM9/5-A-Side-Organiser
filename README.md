@@ -117,7 +117,7 @@ Response `200 OK`
 ]
 ```
 
-`GET /user/{user-id}` Returns a user by the respective id
+`GET /users/{user-id}` Returns a user by the respective id
 
 Response `200 OK`
 
@@ -130,7 +130,7 @@ Response `200 OK`
 }
 ```
 
-`POST /user` Adds a new user
+`POST /users` Adds a new user
 
 Response `201 CREATED`
 
@@ -143,7 +143,7 @@ Response `201 CREATED`
 }
 ```
 
-`PUT /user/{user-id}` Updates a user by the respective id
+`PUT /users/{user-id}` Updates a user by the respective id
 
 Response `200 OK`
 
@@ -171,7 +171,7 @@ Response `200 OK`
 ]
 ```
 
-`POST /group` Adds a group
+`POST /groups` Adds a group
 
 Response `201 CREATED`
 
