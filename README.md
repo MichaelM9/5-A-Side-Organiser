@@ -104,20 +104,18 @@ Response `200 OK`
     "id": 1,
     "firstName": "Michael",
     "lastName": "Mackin",
-    "email": "michaelmackin@email.com",
-    "password": "ljhg3453hj4g52345h"
+    "email": "michaelmackin@email.com"
   },
   {
     "id": 2,
     "firstName": "Marcus",
     "lastName": "Rashford",
-    "email": "mrashford@email.com",
-    "password": "89adf7gasf90g8asf80a7g"
+    "email": "mrashford@email.com"
   }
 ]
 ```
 
-`GET /users/{user-id}` Returns a user by the respective id
+`GET /users/{id}` Returns a user by the respective id
 
 Response `200 OK`
 
@@ -130,6 +128,16 @@ Response `200 OK`
 }
 ```
 
+`GET /users/{id}/groups` Returns a list of groups by user id
+
+Response `200 OK`
+
+```json
+{
+  "groups": ["Premier League", "La Liga", "Serie A"]
+}
+```
+
 `POST /users` Adds a new user
 
 Response `201 CREATED`
@@ -138,10 +146,15 @@ Response `201 CREATED`
 {
   "firstName": "Lionel",
   "lastName": "Messi",
-  "email": "lmessi@email.com",
-  "password": "45h6g7f54h6kg7f5467"
+  "email": "lmessi@email.com"
 }
 ```
+
+`POST /users/{id}/groups/{id}` Adds a new group to a user
+
+Response `201 CREATED`
+
+````
 
 `PUT /users/{user-id}` Updates a user by the respective id
 
@@ -153,22 +166,35 @@ Response `200 OK`
   "lastName": "Messi",
   "email": "lmessi123@email.com"
 }
-```
+````
 
 ---
 
 ### Groups
 
-`GET /groups/{user-id}` Returns a list of all groups by user id
+`GET /groups/{id}/users` Returns a list of all users by group id
 
 Response `200 OK`
 
 ```json
-[
-  {
-    "name": "Premier League"
-  }
-]
+{
+  "name": "Premier League",
+  "users": [
+    { "userId": 1, "firstName": "Marcus", "lastName": "Rashford" },
+    { "userId": 2, "firstName": "Pep", "lastName": "Guardiola" },
+    { "userId": 3, "firstName": "Mohamed", "lastName": "Salah" }
+  ]
+}
+```
+
+`GET /groups/{id}/games` Returns a list of all games by group id
+
+Response `200 OK`
+
+```json
+{
+  "games": ["Game 1", "Game 2", "Game 3", "Game 4"]
+}
 ```
 
 `POST /groups` Adds a group
@@ -181,7 +207,7 @@ Response `201 CREATED`
 }
 ```
 
-`DELETE /groups/{group-id}` Deletes a group by its group id
+`DELETE /groups/{id}` Deletes a group by its group id
 
 Response `204 NO CONTENT`
 
@@ -189,31 +215,7 @@ Response `204 NO CONTENT`
 
 ### Games
 
-`GET /games/{group-id}` Returns a list of all games by group id
-
-Reponse `200 OK`
-
-```json
-[
-  {
-    "date": "2023-1-1",
-    "time": "12:00:00",
-    "location": "Old Trafford"
-  },
-  {
-    "date": "2023-1-2",
-    "time": "15:00:00",
-    "location": "Anfield"
-  },
-  {
-    "date": "2023-1-2",
-    "time": "17:30:00",
-    "location": "Stamford Bridge"
-  }
-]
-```
-
-`GET /games/{game-id}` Returns a game by the respective game
+`GET /games/{id}` Returns a game by the respective game id
 
 Response `200 OK`
 
@@ -225,7 +227,17 @@ Response `200 OK`
 }
 ```
 
-`POST /games` Adds a game
+`GET /games/{id}/users` Returns a list of users by game id
+
+Response `200 OK`
+
+```json
+{
+  "users": ["Marcus Rashford", "Pep Guardiola", "Mohamed Salah"]
+}
+```
+
+`POST /games/groups/{id}` Adds a game for a group
 
 Response `201 CREATED`
 
@@ -236,3 +248,7 @@ Response `201 CREATED`
   "location": "Ethiad"
 }
 ```
+
+`POST /games/{id}/users/{id}` Adds a user to a game
+
+Response `201 CREATED`
