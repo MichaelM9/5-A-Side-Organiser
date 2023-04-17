@@ -154,8 +154,6 @@ Response `201 CREATED`
 
 Response `201 CREATED`
 
-````
-
 `PUT /users/{user-id}` Updates a user by the respective id
 
 Response `200 OK`
@@ -166,13 +164,13 @@ Response `200 OK`
   "lastName": "Messi",
   "email": "lmessi123@email.com"
 }
-````
+```
 
 ---
 
 ### Groups
 
-`GET /groups/{id}/users` Returns a list of all users by group id
+`GET /groups/{id}/users` Returns a list of all users within a group
 
 Response `200 OK`
 
@@ -187,7 +185,7 @@ Response `200 OK`
 }
 ```
 
-`GET /groups/{id}/games` Returns a list of all games by group id
+`GET /groups/{id}/games` Returns a list of all games within a group
 
 Response `200 OK`
 
@@ -215,7 +213,7 @@ Response `204 NO CONTENT`
 
 ### Games
 
-`GET /games/{id}` Returns a game by the respective game id
+`GET /games/{id}` Returns a game by its game id
 
 Response `200 OK`
 
@@ -227,7 +225,7 @@ Response `200 OK`
 }
 ```
 
-`GET /games/{id}/users` Returns a list of users by game id
+`GET /games/{id}/users` Returns a list of users for a game
 
 Response `200 OK`
 
