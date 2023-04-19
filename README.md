@@ -154,7 +154,7 @@ Response `201 CREATED`
 
 Response `201 CREATED`
 
-`PUT /users/{user-id}` Updates a user by the respective id
+`PUT /users/{id}` Updates a user by the respective id
 
 Response `200 OK`
 
@@ -231,7 +231,11 @@ Response `200 OK`
 
 ```json
 {
-  "users": ["Marcus Rashford", "Pep Guardiola", "Mohamed Salah"]
+  "users": [
+    { "userId": 1, "firstName": "Marcus", "lastName": "Rashford" },
+    { "userId": 2, "firstName": "Pep", "lastName": "Guardiola" },
+    { "userId": 3, "firstName": "Mohamed", "lastName": "Salah" }
+  ]
 }
 ```
 
