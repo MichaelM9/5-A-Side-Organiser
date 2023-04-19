@@ -150,7 +150,7 @@ Response `201 CREATED`
 }
 ```
 
-`POST /users/{id}/groups/{id}` Adds a new group to a user
+`POST /users/{id}/groups/{id}` Adds a group to a user
 
 Response `201 CREATED`
 
