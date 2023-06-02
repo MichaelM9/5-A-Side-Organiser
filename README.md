@@ -16,32 +16,44 @@ Organising a game of football between friends should be a care free process, how
 - A collection of involved groups
 - Football game proposal, participation and setup
 
-## MVP
+## Must Haves
 
-- User accounts and login page
-- Football group creation with user invitation
-- User Roles within groups i.e. Admin, Organiser and Player
-- Football game setup (dates, times, locations, no. of players etc.) by Organiser
-- Football game accepting by Players
-- Random team allocation
+- User accounts
+- Login Page
+- User Dashboard Page
+- Group creation
+- User Roles within groups (Admin, Organiser, Player)
+- Game creation (dates, times, locations, no. of players etc.)
+- Team allocation
 
-## Stretch Goals
+## Should Haves
 
-- User game notificaions (push and/or email)
-- Post game poles (Player of the Match, best goal etc.)
-- Player ratings for team allocation balance
-- User payment?
+- Group invitations
+- Game invitations
+- Game/User association
+- Random team allocation for Games
+
+## Could Haves
+
+- User account creation
+- User Account Page
+- Group/Game invitation notifications (email)
+- Post Game poles (Player of the Match, best goal etc.)
+
+## Wont Haves
+
+- Push notifications
+- User payment
+- Player ratings for balancing team allocation
 
 ## Domain Model
 
 ```mermaid
 flowchart
-APP_USER --- USER_GROUP_ROLE
-USER_ROLE --- USER_GROUP_ROLE
-USER_GROUP_ROLE --- USER_GROUP
+APP_USER --- USER_ROLE
+APP_USER --- USER_GROUP
+USER_ROLE --- USER_GROUP
 USER_GROUP --- GAME
-GAME --- GAME_USER_GROUP_ROLE
-USER_GROUP_ROLE --- GAME_USER_GROUP_ROLE
 ```
 
 ## ERD
@@ -68,9 +80,9 @@ user_role {
 }
 user_group_role {
     serial id PK
-    int user_id FK
-    int group_id FK
-    int role_id FK
+    int app_user_id FK
+    int user_group_id FK
+    int user_role_id FK
 }
 user_group {
     serial id PK
@@ -78,7 +90,7 @@ user_group {
 }
 game {
     serial id PK
-    int group_id FK
+    int user_group_id FK
     date date
     timestamp time
     varchar location
@@ -239,7 +251,7 @@ Response `200 OK`
 }
 ```
 
-`POST /games/groups/{id}` Adds a game for a group
+`POST /games/{id}/groups/{id}` Adds a game for a group
 
 Response `201 CREATED`
 
