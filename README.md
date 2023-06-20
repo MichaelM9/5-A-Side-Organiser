@@ -113,13 +113,13 @@ Response `200 OK`
 ```json
 [
   {
-    "id": 1,
+    "userId": 1,
     "firstName": "Michael",
     "lastName": "Mackin",
     "email": "michaelmackin@email.com"
   },
   {
-    "id": 2,
+    "userId": 2,
     "firstName": "Marcus",
     "lastName": "Rashford",
     "email": "mrashford@email.com"
@@ -127,26 +127,29 @@ Response `200 OK`
 ]
 ```
 
-`GET /users/{id}` Returns a user by the respective id
+`GET /users/{userId}` Returns a user by the respective id
 
 Response `200 OK`
 
 ```json
 {
-  "id": 1,
   "firstName": "Michael",
   "lastName": "Mackin",
   "email": "michaelmackin@email.com"
 }
 ```
 
-`GET /users/{id}/groups` Returns a list of groups by user id
+`GET /users/{userId}/groups` Returns a list of groups by user id
 
 Response `200 OK`
 
 ```json
 {
-  "groups": ["Premier League", "La Liga", "Serie A"]
+  "groups": [
+    { "groupId": 1, "groupName": "Premier League" },
+    { "groupId": 2, "groupName": "La Liga" },
+    { "groupId": 3, "groupName": "Serie A" }
+  ]
 }
 ```
 
@@ -162,11 +165,11 @@ Response `201 CREATED`
 }
 ```
 
-`POST /users/{id}/groups/{id}` Adds a group to a user
+`POST /users/{userId}/groups/{groupId}` Adds a group to a user
 
 Response `201 CREATED`
 
-`PUT /users/{id}` Updates a user by the respective id
+`PUT /users/{userId}` Updates a user by the respective id
 
 Response `200 OK`
 
@@ -178,17 +181,20 @@ Response `200 OK`
 }
 ```
 
+`DELETE /users/{userId}` Deletes a user by its user id
+
+Response `204 NO CONTENT`
+
 ---
 
 ### Groups
 
-`GET /groups/{id}/users` Returns a list of all users within a group
+`GET /groups/{groupId}/users` Returns a list of all users within a group
 
 Response `200 OK`
 
 ```json
 {
-  "name": "Premier League",
   "users": [
     { "userId": 1, "firstName": "Marcus", "lastName": "Rashford" },
     { "userId": 2, "firstName": "Pep", "lastName": "Guardiola" },
@@ -197,13 +203,13 @@ Response `200 OK`
 }
 ```
 
-`GET /groups/{id}/games` Returns a list of all games within a group
+`GET /groups/{groupId}/games` Returns a list of all games within a group
 
 Response `200 OK`
 
 ```json
 {
-  "games": ["Game 1", "Game 2", "Game 3", "Game 4"]
+  "games": [{ "gameId": 1 }, { "gameId": 2 }, { "gameId": 3 }]
 }
 ```
 
@@ -213,11 +219,11 @@ Response `201 CREATED`
 
 ```json
 {
-  "name": "La Liga"
+  "groupName": "La Liga"
 }
 ```
 
-`DELETE /groups/{id}` Deletes a group by its group id
+`DELETE /groups/{groupId}` Deletes a group by its group id
 
 Response `204 NO CONTENT`
 
@@ -225,7 +231,7 @@ Response `204 NO CONTENT`
 
 ### Games
 
-`GET /games/{id}` Returns a game by its game id
+`GET /games/{gameId}` Returns a game by its game id
 
 Response `200 OK`
 
@@ -237,7 +243,7 @@ Response `200 OK`
 }
 ```
 
-`GET /games/{id}/users` Returns a list of users for a game
+`GET /games/{gameId}/users` Returns a list of users for a game
 
 Response `200 OK`
 
@@ -251,7 +257,7 @@ Response `200 OK`
 }
 ```
 
-`POST /games/{id}/groups/{id}` Adds a game for a group
+`POST /games/{gameId}/groups/{groupId}` Adds a game for a group
 
 Response `201 CREATED`
 
@@ -263,6 +269,6 @@ Response `201 CREATED`
 }
 ```
 
-`POST /games/{id}/users/{id}` Adds a user to a game
+`POST /games/{gameId}/users/{userId}` Adds a user to a game
 
 Response `201 CREATED`
