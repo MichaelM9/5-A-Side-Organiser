@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model app_user {
+  id              Int               @id @default(autoincrement())
+  first_name      String            @db.VarChar
+  last_name       String            @db.VarChar
+  email           String            @db.VarChar
+  password        String            @db.VarChar
+  user_group_role user_group_role[]
+}
+
+model flyway_schema_history {
+  installed_rank Int      @id(map: "flyway_schema_history_pk")
+  version        String?  @db.VarChar(50)
+  description    String   @db.VarChar(200)
+  type           String   @db.VarChar(20)
+  script         String   @db.VarChar(1000)
+  checksum       Int?
+  installed_by   String   @db.VarChar(100)
+  installed_on   DateTime @default(now()) @db.Timestamp(6)
+  execution_time Int
+  success        Boolean
+
+  @@index([success], map: "flyway_schema_history_s_idx")
+}
+
+model game {
+  id                   Int                    @id @default(autoincrement())
+  group_id             Int
+  game_date            DateTime               @db.Date
+  game_time            DateTime               @db.Time(6)
+  game_location        String                 @db.VarChar
+  user_group           user_group             @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_group")
+  game_user_group_role game_user_group_role[]
+}
+
+model game_user_group_role {
+  id                 Int             @id @default(autoincrement())
+  game_id            Int
+  user_group_role_id Int
+  game               game            @relation(fields: [game_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_game")
+  user_group_role    user_group_role @relation(fields: [user_group_role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_group_role")
+}
+
+model user_group {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar
+  game            game[]
+  user_group_role user_group_role[]
+}
+
+model user_group_role {
+  id                   Int                    @id @default(autoincrement())
+  user_id              Int
+  group_id             Int
+  role_id              Int
+  game_user_group_role game_user_group_role[]
+  user_group           user_group             @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_group")
+  user_role            user_role              @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_role")
+  app_user             app_user               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
+}
+
+model user_role {
+  id              Int               @id @default(autoincrement())
+  description     String            @db.VarChar
+  user_group_role user_group_role[]
+}

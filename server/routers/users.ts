@@ -1,4 +1,6 @@
 import { Request, Response, Router } from "express";
+import { body } from "express-validator";
+import { validation } from "../utils/validation";
 import { userGroupsRouter } from "./userGroups";
 
 const usersRouter = Router();
@@ -98,9 +100,39 @@ usersRouter.get("/{userId}", (req: Request, res: Response) => {
  *       201:
  *         description: User Created
  */
-usersRouter.post("/", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+usersRouter.post(
+  "/",
+  [
+    body("firstName")
+      .isLength({ min: 1 })
+      .withMessage("the first name must have minimum length of 1")
+      .trim(),
+    body("lastName")
+      .isLength({ min: 1 })
+      .withMessage("the last name must have minimum length of 1")
+      .trim(),
+    body("email")
+      .isLength({ min: 3 })
+      .withMessage("the email must have minimum length of 1")
+      .isEmail()
+      .withMessage("the email must be in a valid email format")
+      .trim(),
+    body("password")
+      .isLength({ min: 8, max: 16 })
+      .withMessage(
+        "the password should have min and max length between 8-16 characters"
+      )
+      .matches(/\d/)
+      .withMessage("the password should have at least one number")
+      .matches(/[!@#$%^&*(),.?":{}|<>]/)
+      .withMessage("the password should have at least one special character"),
+  ],
+  validation.validate,
+
+  (req: Request, res: Response) => {
+    res.send("Hello World");
+  }
+);
 
 /**
  * @swagger
@@ -143,9 +175,39 @@ usersRouter.post("/", (req: Request, res: Response) => {
  *       204:
  *         description: User Updated
  */
-usersRouter.put("/{userId}", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+usersRouter.put(
+  "/{userId}",
+  [
+    body("firstName")
+      .isLength({ min: 1 })
+      .withMessage("the first name must have minimum length of 1")
+      .trim(),
+    body("lastName")
+      .isLength({ min: 1 })
+      .withMessage("the last name must have minimum length of 1")
+      .trim(),
+    body("email")
+      .isLength({ min: 3 })
+      .withMessage("the email must have minimum length of 1")
+      .isEmail()
+      .withMessage("the email must be in a valid email format")
+      .trim(),
+    body("password")
+      .isLength({ min: 8, max: 16 })
+      .withMessage(
+        "the password should have min and max length between 8-16 characters"
+      )
+      .matches(/\d/)
+      .withMessage("the password should have at least one number")
+      .matches(/[!@#$%^&*(),.?":{}|<>]/)
+      .withMessage("the password should have at least one special character"),
+  ],
+  validation.validate,
+
+  (req: Request, res: Response) => {
+    res.send("Hello World");
+  }
+);
 
 /**
  * @swagger

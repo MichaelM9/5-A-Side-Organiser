@@ -1,4 +1,6 @@
 import { Request, Response, Router } from "express";
+import { body } from "express-validator";
+import { validation } from "../utils/validation";
 
 const userGroupsRouter = Router({ mergeParams: true });
 
@@ -36,7 +38,7 @@ userGroupsRouter.get("/", (req: Request, res: Response) => {
  * /users/{userId}/groups/{groupId}:
  *   post:
  *     tags: [
- *       groups
+ *       users
  *     ]
  *     summary: Adds a user to a group
  *     parameters:
@@ -48,16 +50,6 @@ userGroupsRouter.get("/", (req: Request, res: Response) => {
  *         in: path
  *         type: integer
  *         description: The ID of the requested group.
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               groupName:
- *                 type: string
- *                 required: true
- *                 description: The name for the group
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.

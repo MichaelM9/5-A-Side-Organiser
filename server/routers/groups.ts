@@ -1,4 +1,6 @@
 import { Request, Response, Router } from "express";
+import { body } from "express-validator";
+import { validation } from "../utils/validation";
 
 const groupsRouter = Router();
 
@@ -23,9 +25,8 @@ const groupsRouter = Router();
  *             examples:
  *               jsonObject:
  *                 summary: An example JSON response
- *                 value: '{ "name": "Premier League",
- *                           "users": [{ "userId": 1, "firstName": "Marcus", "lastName": "Rashford" },
- *                                     { "userId": 2, "firstName": "Pep", "lastName": "Guardiola" }] }'
+ *                 value: '[{ "userId": 1, "firstName": "Marcus", "lastName": "Rashford" },
+ *                          { "userId": 2, "firstName": "Pep", "lastName": "Guardiola" }]'
  *       204:
  *         description: No content
  */
@@ -54,7 +55,7 @@ groupsRouter.get("/{groupId}/users", (req: Request, res: Response) => {
  *             examples:
  *               jsonObject:
  *                 summary: An example JSON response
- *                 value: '{ "games": [ "game1", "game2", "game3" ] }'
+ *                 value: '[ { "gameId": 1 }, { "gameId": 2 }, { "gameId": 3 } ]'
  *       204:
  *         description: No content
  */
@@ -86,9 +87,20 @@ groupsRouter.get("/{groupId}/games", (req: Request, res: Response) => {
  *       201:
  *         description: Group Created
  */
-groupsRouter.post("/", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+groupsRouter.post(
+  "/",
+  [
+    body("groupName")
+      .isLength({ min: 1 })
+      .withMessage("the group name must have minimum length of 1")
+      .trim(),
+  ],
+  validation.validate,
+
+  (req: Request, res: Response) => {
+    res.send("Hello World");
+  }
+);
 
 /**
  * @swagger

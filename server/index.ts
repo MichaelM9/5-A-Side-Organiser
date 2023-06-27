@@ -29,11 +29,6 @@ const openapiSpecification = swaggerJSDoc({
   apis: ["./routers/*.ts"],
 });
 
-// app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(openapiSpecification));
-// app.use("/swagger.json", (req: Request, res: Response) =>
-//   res.json(openapiSpecification).status(200)
-// );
-
 app.use("/swagger.json", (req, res) =>
   res.json(openapiSpecification).status(200)
 );

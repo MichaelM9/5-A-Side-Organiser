@@ -1,4 +1,6 @@
 import { Request, Response, Router } from "express";
+import { body } from "express-validator";
+import { validation } from "../utils/validation";
 
 const gameUsersRouter = Router();
 
@@ -65,8 +67,19 @@ gameUsersRouter.get("/", (req: Request, res: Response) => {
  *       201:
  *         description: User Added to Game
  */
-gameUsersRouter.post("/{userId}", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+gameUsersRouter.post(
+  "/{userId}",
+  [
+    body("groupName")
+      .isLength({ min: 1 })
+      .withMessage("the group name must have minimum length of 1")
+      .trim(),
+  ],
+  validation.validate,
+
+  (req: Request, res: Response) => {
+    res.send("Hello World");
+  }
+);
 
 export { gameUsersRouter };
