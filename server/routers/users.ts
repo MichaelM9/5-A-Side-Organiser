@@ -1,7 +1,8 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { body } from "express-validator";
 import { validation } from "../utils/validation";
 import { userGroupsRouter } from "./userGroups";
+import { UserController } from "../controllers/users";
 
 const usersRouter = Router();
 
@@ -31,9 +32,7 @@ const usersRouter = Router();
  *       204:
  *         description: No content
  */
-usersRouter.get("/", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+usersRouter.get("/", UserController.getAllUsers);
 
 /**
  * @swagger
@@ -47,6 +46,7 @@ usersRouter.get("/", (req: Request, res: Response) => {
  *       - name: userId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested user.
  *     responses:
  *       200:
@@ -60,9 +60,7 @@ usersRouter.get("/", (req: Request, res: Response) => {
  *       204:
  *         description: No content
  */
-usersRouter.get("/{userId}", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+usersRouter.get("/:userId", UserController.getUser);
 
 /**
  * @swagger
@@ -128,10 +126,7 @@ usersRouter.post(
       .withMessage("the password should have at least one special character"),
   ],
   validation.validate,
-
-  (req: Request, res: Response) => {
-    res.send("Hello World");
-  }
+  UserController.createNewUser
 );
 
 /**
@@ -146,6 +141,7 @@ usersRouter.post(
  *       - name: userId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested user.
  *     requestBody:
  *       content:
@@ -176,7 +172,7 @@ usersRouter.post(
  *         description: User Updated
  */
 usersRouter.put(
-  "/{userId}",
+  "/:userId",
   [
     body("firstName")
       .isLength({ min: 1 })
@@ -203,10 +199,7 @@ usersRouter.put(
       .withMessage("the password should have at least one special character"),
   ],
   validation.validate,
-
-  (req: Request, res: Response) => {
-    res.send("Hello World");
-  }
+  UserController.updateExistingUser
 );
 
 /**
@@ -221,17 +214,16 @@ usersRouter.put(
  *       - name: userId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested user.
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
- *       201:
+ *       204:
  *         description: User Deleted
  */
-usersRouter.delete("/{userId}", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+usersRouter.delete("/:userId", UserController.deleteExistingUser);
 
-usersRouter.use("/{userId}/groups", userGroupsRouter);
+usersRouter.use("/:userId/groups", userGroupsRouter);
 
 export { usersRouter };

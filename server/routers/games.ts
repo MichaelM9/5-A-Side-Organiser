@@ -1,6 +1,7 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { gameUsersRouter } from "./gameUsers";
 import { gameGroupsRouter } from "./gameGroups";
+import { GameController } from "../controllers/games";
 
 const gamesRouter = Router();
 
@@ -16,6 +17,7 @@ const gamesRouter = Router();
  *       - name: gameId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested game.
  *     responses:
  *       200:
@@ -29,9 +31,47 @@ const gamesRouter = Router();
  *       204:
  *         description: No content
  */
-gamesRouter.get("/{gameId}", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+gamesRouter.get("/:gameId", GameController.getGame);
+
+/**
+ * @swagger
+ * /games/{gameId}:
+ *   post:
+ *     tags: [
+ *       game
+ *     ]
+ *     summary: Updates an existing game
+ *     parameters:
+ *       - name: gameId
+ *         in: path
+ *         type: integer
+ *         required: true
+ *         description: The ID of the requested game.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               date:
+ *                 type: string
+ *                 required: true
+ *                 description: The name for the group
+ *               time:
+ *                 type: time
+ *                 required: true
+ *                 description: The name for the group
+ *               location:
+ *                 type: string
+ *                 required: true
+ *                 description: The name for the group
+ *     responses:
+ *       400:
+ *         description: Bad Request - required values are missing.
+ *       201:
+ *         description: Group Updated
+ */
+gamesRouter.put("/:groupId", GameController.updateExistingGame);
 
 /**
  * @swagger
@@ -45,18 +85,17 @@ gamesRouter.get("/{gameId}", (req: Request, res: Response) => {
  *       - name: gameId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested game
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
- *       201:
+ *       204:
  *         description: Game Deleted
  */
-gamesRouter.delete("/{gameId}", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+gamesRouter.delete("/:gameId", GameController.deleteExistingGame);
 
-gamesRouter.use("/{gameId}/users", gameUsersRouter);
-gamesRouter.use("/{gameId}/groups", gameGroupsRouter);
+gamesRouter.use("/:gameId/users", gameUsersRouter);
+gamesRouter.use("/:gameId/groups", gameGroupsRouter);
 
 export { gamesRouter };

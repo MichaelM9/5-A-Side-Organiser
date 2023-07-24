@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { body } from "express-validator";
 import { validation } from "../utils/validation";
+import { GroupController } from "../controllers/groups";
 
 const groupsRouter = Router();
 
@@ -30,9 +31,7 @@ const groupsRouter = Router();
  *       204:
  *         description: No content
  */
-groupsRouter.get("/{groupId}/users", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+groupsRouter.get("/:groupId/users", GroupController.getGroupUsers);
 
 /**
  * @swagger
@@ -59,9 +58,7 @@ groupsRouter.get("/{groupId}/users", (req: Request, res: Response) => {
  *       204:
  *         description: No content
  */
-groupsRouter.get("/{groupId}/games", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+groupsRouter.get("/:groupId/games", GroupController.getGroupGames);
 
 /**
  * @swagger
@@ -97,9 +94,7 @@ groupsRouter.post(
   ],
   validation.validate,
 
-  (req: Request, res: Response) => {
-    res.send("Hello World");
-  }
+  GroupController.createNewGroup
 );
 
 /**
@@ -114,15 +109,14 @@ groupsRouter.post(
  *       - name: groupId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested group.
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
- *       201:
+ *       204:
  *         description: Group Deleted
  */
-groupsRouter.delete("/{groupId}", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+groupsRouter.delete("/:groupId", GroupController.deleteExistingUser);
 
 export { groupsRouter };

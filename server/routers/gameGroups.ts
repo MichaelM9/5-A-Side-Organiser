@@ -4,12 +4,12 @@ const gameGroupsRouter = Router();
 
 /**
  * @swagger
- * /games/{gameId}/groups/{groupId}:
+ * /games/groups/{groupId}:
  *   post:
  *     tags: [
  *       games
  *     ]
- *     summary: Adds a game to a group
+ *     summary: Creates a game for a group
  *     parameters:
  *       - name: gameId
  *         in: path
@@ -35,7 +35,7 @@ const gameGroupsRouter = Router();
  *       201:
  *         description: User Added to Group
  */
-gameGroupsRouter.post("/{groupId}", (req: Request, res: Response) => {
+gameGroupsRouter.post("/:groupId", (req: Request, res: Response) => {
   res.send("Hello World");
 });
 

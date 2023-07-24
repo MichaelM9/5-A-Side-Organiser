@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { body } from "express-validator";
 import { validation } from "../utils/validation";
+import { GameController } from "../controllers/games";
 
 const gameUsersRouter = Router();
 
@@ -30,9 +31,7 @@ const gameUsersRouter = Router();
  *       204:
  *         description: No content
  */
-gameUsersRouter.get("/", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+gameUsersRouter.get("/", GameController.getGameUsers);
 
 /**
  * @swagger
@@ -68,7 +67,7 @@ gameUsersRouter.get("/", (req: Request, res: Response) => {
  *         description: User Added to Game
  */
 gameUsersRouter.post(
-  "/{userId}",
+  "/:userId",
   [
     body("groupName")
       .isLength({ min: 1 })

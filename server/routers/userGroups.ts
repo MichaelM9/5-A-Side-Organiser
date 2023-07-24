@@ -1,6 +1,5 @@
-import { Request, Response, Router } from "express";
-import { body } from "express-validator";
-import { validation } from "../utils/validation";
+import { Router } from "express";
+import { UserController } from "../controllers/users";
 
 const userGroupsRouter = Router({ mergeParams: true });
 
@@ -16,6 +15,7 @@ const userGroupsRouter = Router({ mergeParams: true });
  *       - name: userId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested user.
  *     responses:
  *       200:
@@ -29,13 +29,11 @@ const userGroupsRouter = Router({ mergeParams: true });
  *       204:
  *         description: No content
  */
-userGroupsRouter.get("/", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+userGroupsRouter.get("/", UserController.getUserGroups);
 
 /**
  * @swagger
- * /users/{userId}/groups/{groupId}:
+ * /users/{userId}/groups/{groupId}?role={roleId}:
  *   post:
  *     tags: [
  *       users
@@ -45,19 +43,23 @@ userGroupsRouter.get("/", (req: Request, res: Response) => {
  *       - name: userId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested user.
  *       - name: groupId
  *         in: path
  *         type: integer
+ *         required: true
  *         description: The ID of the requested group.
+ * *       - name: roleId
+ *         in: query
+ *         type: integer
+ *         description: The ID of the desired user role.
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
  *       201:
  *         description: User Added to Group
  */
-userGroupsRouter.post("/{groupId}", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+userGroupsRouter.post("/:groupId", UserController.addUserToGroup);
 
 export { userGroupsRouter };
