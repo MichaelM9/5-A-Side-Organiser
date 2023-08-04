@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/users";
+import bcrypt from "bcrypt";
 
 async function getAllUsers(req: Request, res: Response) {
   const users = await UserService.getUsers();
@@ -19,12 +20,13 @@ async function getUser(req: Request, res: Response) {
 
 async function createNewUser(req: Request, res: Response) {
   const { firstName, lastName, email, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await UserService.createUser(
     firstName,
     lastName,
     email,
-    password
+    hashedPassword
   );
   return res.status(200).json(user);
 }
@@ -32,8 +34,15 @@ async function createNewUser(req: Request, res: Response) {
 async function updateExistingUser(req: Request, res: Response) {
   const { userId } = req.params;
   const { firstName, lastName, email, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  await UserService.updateUser(userId, firstName, lastName, email, password);
+  await UserService.updateUser(
+    userId,
+    firstName,
+    lastName,
+    email,
+    hashedPassword
+  );
   return res.sendStatus(204);
 }
 

@@ -3,6 +3,7 @@ import { GroupService } from "../services/groups";
 
 async function getGroupUsers(req: Request, res: Response) {
   const { groupId } = req.params;
+  const { user } = res.locals;
 
   const users = await GroupService.getUsersByGroupId(groupId);
   if (users) {

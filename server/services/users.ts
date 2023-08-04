@@ -12,6 +12,13 @@ async function getUserById(userId: string) {
   });
 }
 
+async function getUserByEmail(email: string) {
+  const users = await prisma.app_user.findMany({
+    where: { email: email },
+  });
+  return users && users.length > 0 && users[0];
+}
+
 async function createUser(
   firstName: string,
   lastName: string,
@@ -84,6 +91,7 @@ async function addGroupUser(userId: string, groupId: string, roleId: string) {
 const UserService = {
   getUsers,
   getUserById,
+  getUserByEmail,
   createUser,
   updateUser,
   deleteUser,

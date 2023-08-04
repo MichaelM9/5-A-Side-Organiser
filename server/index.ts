@@ -1,8 +1,9 @@
 import express, { json, urlencoded, Request, Response } from "express";
 import cors from "cors";
-import { usersRouter, groupsRouter, gamesRouter } from "./routers";
+import { authRouter, usersRouter, groupsRouter, gamesRouter } from "./routers";
 import swaggerUI from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
+import { authenticate } from "./middleware/authentication";
 
 const app = express();
 
@@ -38,6 +39,9 @@ app.use(
   swaggerUI.setup(undefined, { swaggerOptions: { url: "/swagger.json" } })
 );
 
+app.all("*", authenticate);
+
+app.use("/authentication", authRouter);
 app.use("/users", usersRouter);
 app.use("/groups", groupsRouter);
 app.use("/games", gamesRouter);
