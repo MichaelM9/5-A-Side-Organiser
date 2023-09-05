@@ -27,7 +27,7 @@ const gamesRouter = Router();
  *             examples:
  *               jsonObject:
  *                 summary: An example JSON response
- *                 value: '{ "date": "2023-1-1", "time": "12:00:00", "location": "Old Trafford" }'
+ *                 value: '{ "kickoffDate": "2023-1-1", "kickoffTime": "12:00:00", "venue": "Old Trafford" }'
  *       204:
  *         description: No content
  */
@@ -53,23 +53,23 @@ gamesRouter.get("/:gameId", GameController.getGame);
  *           schema:
  *             type: object
  *             properties:
- *               date:
+ *               kickoffDate:
  *                 type: string
  *                 required: true
- *                 description: The name for the group
- *               time:
- *                 type: time
- *                 required: true
- *                 description: The name for the group
- *               location:
+ *                 description: The date for the game
+ *               kickoffTime:
  *                 type: string
  *                 required: true
- *                 description: The name for the group
+ *                 description: The kickoff time for the game
+ *               venue:
+ *                 type: string
+ *                 required: true
+ *                 description: The venue for the group
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
  *       201:
- *         description: Group Updated
+ *         description: Game Updated
  */
 gamesRouter.put("/:groupId", GameController.updateExistingGame);
 

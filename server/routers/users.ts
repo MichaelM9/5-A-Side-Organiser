@@ -13,7 +13,7 @@ const usersRouter = Router();
  *     tags: [
  *       users
  *     ]
- *     summary: Returns an array of user items
+ *     summary: Returns an array of users
  *     parameters:
  *       - id: email
  *         in: query

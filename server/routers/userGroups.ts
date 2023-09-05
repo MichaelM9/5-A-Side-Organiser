@@ -3,6 +3,27 @@ import { UserController } from "../controllers/users";
 
 const userGroupsRouter = Router({ mergeParams: true });
 
+/**
+ * @swagger
+ * /users/{userId}/groups:
+ *   get:
+ *     tags: [
+ *       userGroups
+ *     ]
+ *     summary: Returns an array of groups for a user
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             examples:
+ *               jsonObject:
+ *                 summary: An example JSON response
+ *                 value: '[{ "role": "admin", "group": "group uno" },
+ *                        { "role": "player", "group": "group two" }]'
+ *       204:
+ *         description: No content
+ */
 userGroupsRouter.get("/", UserController.getUserGroups);
 
 /**

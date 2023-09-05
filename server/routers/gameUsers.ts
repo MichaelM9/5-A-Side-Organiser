@@ -1,6 +1,4 @@
-import { Request, Response, Router } from "express";
-import { body } from "express-validator";
-import { validation } from "../utils/validation";
+import { Router } from "express";
 import { GameController } from "../controllers/games";
 
 const gameUsersRouter = Router();
@@ -50,35 +48,12 @@ gameUsersRouter.get("/", GameController.getGameUsers);
  *         in: path
  *         type: integer
  *         description: The ID of the requested user.
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                 type: id
- *                 required: true
- *                 description: The ID for the user
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
  *       201:
  *         description: User Added to Game
  */
-gameUsersRouter.post(
-  "/:userId",
-  [
-    body("groupName")
-      .isLength({ min: 1 })
-      .withMessage("the group name must have minimum length of 1")
-      .trim(),
-  ],
-  validation.validate,
-
-  (req: Request, res: Response) => {
-    res.send("Hello World");
-  }
-);
+gameUsersRouter.post("/:userId", GameController.addGameUser);
 
 export { gameUsersRouter };

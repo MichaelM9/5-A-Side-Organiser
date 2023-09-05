@@ -1,4 +1,5 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { GameController } from "../controllers/games";
 
 const gameGroupsRouter = Router();
 
@@ -11,10 +12,6 @@ const gameGroupsRouter = Router();
  *     ]
  *     summary: Creates a game for a group
  *     parameters:
- *       - name: gameId
- *         in: path
- *         type: integer
- *         description: The ID of the requested game.
  *       - name: groupId
  *         in: path
  *         type: integer
@@ -25,18 +22,24 @@ const gameGroupsRouter = Router();
  *           schema:
  *             type: object
  *             properties:
- *               groupId:
- *                 type: integer
+ *               kickoffDate:
+ *                 type: string
  *                 required: true
- *                 description: The ID for the group
+ *                 description: The date for the game
+ *               kickoffTime:
+ *                 type: string
+ *                 required: true
+ *                 description: The time for the game
+ *               venue:
+ *                 type: string
+ *                 required: true
+ *                 description: The venue for the game
  *     responses:
  *       400:
  *         description: Bad Request - required values are missing.
  *       201:
- *         description: User Added to Group
+ *         description: Game added to Group
  */
-gameGroupsRouter.post("/:groupId", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+gameGroupsRouter.post("/:groupId", GameController.createNewGame);
 
 export { gameGroupsRouter };
