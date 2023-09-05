@@ -34,9 +34,9 @@ model flyway_schema_history {
 model game {
   id                   Int                    @id @default(autoincrement())
   group_id             Int
-  game_date            DateTime               @db.Date
-  game_time            DateTime               @db.Time(6)
-  game_location        String                 @db.VarChar
+  kickoff_date         DateTime               @db.Date
+  kickoff_time         DateTime               @db.Time(6)
+  venue                String                 @db.VarChar
   user_group           user_group             @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_group")
   game_user_group_role game_user_group_role[]
 }
@@ -62,9 +62,9 @@ model user_group_role {
   group_id             Int
   role_id              Int
   game_user_group_role game_user_group_role[]
+  app_user             app_user               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
   user_group           user_group             @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_group")
   user_role            user_role              @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_role")
-  app_user             app_user               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
 }
 
 model user_role {

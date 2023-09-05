@@ -47,7 +47,7 @@ BEGIN
 		(13, 3, 3),
 		(14, 3, 3);
 
-    INSERT INTO game (group_id, game_date, game_time, game_location) VALUES
+    INSERT INTO game (group_id, kickoff_date, kickoff_time, venue) VALUES
 		(3, CURRENT_DATE, CURRENT_TIME, 'Old Trafford');
 
 	INSERT INTO game_user_group_role  (game_id, user_group_role_id) VALUES
