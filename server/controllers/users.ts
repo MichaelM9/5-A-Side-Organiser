@@ -4,7 +4,11 @@ import bcrypt from "bcrypt";
 
 async function getAllUsers(req: Request, res: Response) {
   const users = await UserService.getUsers();
-  return res.status(200).json(users);
+  if (users) {
+    return res.status(200).json(users);
+  } else {
+    return res.sendStatus(404);
+  }
 }
 
 async function getUser(req: Request, res: Response) {
@@ -22,13 +26,17 @@ async function createNewUser(req: Request, res: Response) {
   const { firstName, lastName, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = await UserService.createUser(
+  const userCreate = await UserService.createUser(
     firstName,
     lastName,
     email,
     hashedPassword
   );
-  return res.status(200).json(user);
+  if (userCreate) {
+    return res.status(201).json(userCreate);
+  } else {
+    return res.sendStatus(400);
+  }
 }
 
 async function updateExistingUser(req: Request, res: Response) {
@@ -36,28 +44,36 @@ async function updateExistingUser(req: Request, res: Response) {
   const { firstName, lastName, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  await UserService.updateUser(
+  const userUpdate = await UserService.updateUser(
     userId,
     firstName,
     lastName,
     email,
     hashedPassword
   );
-  return res.sendStatus(204);
+  if (userUpdate) {
+    return res.sendStatus(204);
+  } else {
+    return res.sendStatus(400);
+  }
 }
 
 async function deleteExistingUser(req: Request, res: Response) {
   const { userId } = req.params;
 
-  await UserService.deleteUser(userId);
-  return res.sendStatus(204);
+  const userDelete = await UserService.deleteUser(userId);
+  if (userDelete) {
+    return res.sendStatus(204);
+  } else {
+    return res.sendStatus(404);
+  }
 }
 
 async function getUserGroups(req: Request, res: Response) {
   const { userId } = req.params;
 
-  const users = await UserService.getGroupsByUser(userId);
-  return res.status(200).json(users);
+  const userGroups = await UserService.getGroupsByUser(userId);
+  return res.status(200).json(userGroups);
 }
 
 async function addUserToGroup(req: Request, res: Response) {

@@ -17,9 +17,9 @@ async function updateGame(
   return await prisma.game.update({
     where: { id: parseInt(gameId) },
     data: {
-      game_date: date,
-      game_time: time,
-      game_location: location,
+      kickoff_date: date,
+      kickoff_time: time,
+      venue: location,
     },
   });
 }
@@ -63,9 +63,9 @@ async function createGame(
   return await prisma.game.create({
     data: {
       group_id: parseInt(groupId),
-      game_date: date,
-      game_time: time,
-      game_location: location,
+      kickoff_date: date,
+      kickoff_time: time,
+      venue: location,
     },
   });
 }
