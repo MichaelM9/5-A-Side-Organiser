@@ -60,7 +60,7 @@ usersRouter.get("/", UserController.getAllUsers);
  *       204:
  *         description: No content
  */
-usersRouter.get("/:userId", UserController.getUser);
+usersRouter.get("/:userId(\\d+)", UserController.getUser);
 
 /**
  * @swagger
@@ -102,20 +102,23 @@ usersRouter.post(
   "/",
   [
     body("firstName")
+      .isString()
       .isLength({ min: 1 })
       .withMessage("the first name must have minimum length of 1")
       .trim(),
     body("lastName")
+      .isString()
       .isLength({ min: 1 })
       .withMessage("the last name must have minimum length of 1")
       .trim(),
     body("email")
+      .isString()
       .isLength({ min: 3 })
-      .withMessage("the email must have minimum length of 1")
       .isEmail()
       .withMessage("the email must be in a valid email format")
-      .trim(),
+      .normalizeEmail(),
     body("password")
+      .isString()
       .isLength({ min: 8, max: 16 })
       .withMessage(
         "the password should have min and max length between 8-16 characters"
@@ -172,23 +175,26 @@ usersRouter.post(
  *         description: User Updated
  */
 usersRouter.put(
-  "/:userId",
+  "/:userId(\\d+)",
   [
     body("firstName")
+      .isString()
       .isLength({ min: 1 })
       .withMessage("the first name must have minimum length of 1")
       .trim(),
     body("lastName")
+      .isString()
       .isLength({ min: 1 })
       .withMessage("the last name must have minimum length of 1")
       .trim(),
     body("email")
+      .isString()
       .isLength({ min: 3 })
-      .withMessage("the email must have minimum length of 1")
       .isEmail()
       .withMessage("the email must be in a valid email format")
-      .trim(),
+      .normalizeEmail(),
     body("password")
+      .isString()
       .isLength({ min: 8, max: 16 })
       .withMessage(
         "the password should have min and max length between 8-16 characters"
@@ -222,8 +228,8 @@ usersRouter.put(
  *       204:
  *         description: User Deleted
  */
-usersRouter.delete("/:userId", UserController.deleteExistingUser);
+usersRouter.delete("/:userId(\\d+)", UserController.deleteExistingUser);
 
-usersRouter.use("/:userId/groups", userGroupsRouter);
+usersRouter.use("/:userId(\\d+)/groups", userGroupsRouter);
 
 export { usersRouter };

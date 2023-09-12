@@ -4,11 +4,8 @@ import bcrypt from "bcrypt";
 
 async function getAllUsers(req: Request, res: Response) {
   const users = await UserService.getUsers();
-  if (users) {
-    return res.status(200).json(users);
-  } else {
-    return res.sendStatus(404);
-  }
+
+  return res.status(200).json(users);
 }
 
 async function getUser(req: Request, res: Response) {
@@ -32,11 +29,8 @@ async function createNewUser(req: Request, res: Response) {
     email,
     hashedPassword
   );
-  if (userCreate) {
-    return res.status(201).json(userCreate);
-  } else {
-    return res.sendStatus(400);
-  }
+
+  return res.status(201).json(userCreate);
 }
 
 async function updateExistingUser(req: Request, res: Response) {
@@ -51,10 +45,11 @@ async function updateExistingUser(req: Request, res: Response) {
     email,
     hashedPassword
   );
+
   if (userUpdate) {
     return res.sendStatus(204);
   } else {
-    return res.sendStatus(400);
+    return res.sendStatus(404);
   }
 }
 

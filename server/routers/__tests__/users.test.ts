@@ -1,4 +1,3 @@
-import { Response } from "express";
 import request from "supertest";
 import { app } from "../../App";
 
@@ -26,7 +25,214 @@ describe("/users", () => {
       await request(app)
         .get("/users/1000")
         .set("Accept", "application/json")
+        .expect("Content-type", "text/plain; charset=utf-8")
         .expect(404);
     });
   });
+
+  describe("POST /users", () => {
+    const verifyCreateUserValidation = (res) => {
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          error: expect.arrayContaining([
+            expect.objectContaining({
+              location: "body",
+              path: "firstName",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "firstName",
+              msg: "the first name must have minimum length of 1",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "lastName",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "lastName",
+              msg: "the last name must have minimum length of 1",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "email",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "email",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "email",
+              msg: "the email must be in a valid email format",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "password",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "password",
+              msg: "the password should have min and max length between 8-16 characters",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "password",
+              msg: "the password should have at least one number",
+            }),
+            expect.objectContaining({
+              location: "body",
+              path: "password",
+              msg: "the password should have at least one special character",
+            }),
+          ]),
+        })
+      );
+    };
+
+    it("respond with 201 when user created", async () => {
+      const userInput = {
+        firstName: "New",
+        lastName: "User",
+        email: "newuser@email.com",
+        password: "Password1!",
+      };
+
+      await request(app)
+        .post("/users")
+        .set("Accept", "application/json")
+        .send(userInput)
+        .expect("Content-type", "application/json; charset=utf-8")
+        .expect(201);
+    });
+
+    it("respond with 400 when user not created", async () => {
+      await request(app)
+        .post("/users")
+        .set("Accept", "application/json")
+        .send({})
+        .expect("Content-type", /json/)
+        .expect(400)
+        .expect(verifyCreateUserValidation);
+    });
+  });
+
+  describe("PUT /users/:userId", () => {
+    const userValidation = (res) => {
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          error: expect.arrayContaining([
+            expect.objectContaining({
+              location: "body",
+              param: "firstName",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "firstName",
+              msg: "the first name must have minimum length of 1",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "lastName",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "lastName",
+              msg: "the last name must have minimum length of 1",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "email",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "email",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "email",
+              msg: "the email must be in a valid email format",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "password",
+              msg: "Invalid value",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "password",
+              msg: "the password should have min and max length between 8-16 characters",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "password",
+              msg: "the password should have at least one number",
+            }),
+            expect.objectContaining({
+              location: "body",
+              param: "password",
+              msg: "the password should have at least one special character",
+            }),
+          ]),
+        })
+      );
+    };
+
+    it("respond with 204 when user updated", async () => {
+      const userInput = {
+        firstName: "New",
+        lastName: "User",
+        email: "newuser@email.com",
+        password: "Password1!",
+      };
+
+      await request(app)
+        .put("/users/1")
+        .set("Accept", "application/json; charset=utf-8")
+        .send(userInput)
+        .expect(204);
+    });
+
+    it("respond with 400 when user not updated", async () => {
+      await request(app)
+        .post("/users/1")
+        .set("Accept", "application/json")
+        .send({})
+        .expect(400)
+        .expect(userValidation);
+    });
+
+    it("respond with 404 when no user to update", async () => {
+      const userInput = {
+        firstName: "New",
+        lastName: "User",
+        email: "newuser@email.com",
+        password: "Password1!",
+      };
+
+      await request(app)
+        .post("/users/1000")
+        .set("Accept", "application/json")
+        .send(userInput)
+        .expect(404);
+    });
+  });
+
+  // describe("DELETE /users/:userId", () => {
+  //   it("respond with 204 when user deleted", async () => {
+  //     await request(app).delete("/users/1").expect(204);
+  //   });
+  //   it("respond with 404 when no user to delete", async () => {
+  //     await request(app).delete("/users/1000").expect(404);
+  //   });
+  // });
 });
