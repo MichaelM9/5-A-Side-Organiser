@@ -1,4 +1,11 @@
-import express, { json, urlencoded, Request, Response } from "express";
+import express, {
+  json,
+  urlencoded,
+  Request,
+  Response,
+  NextFunction,
+} from "express";
+import "express-async-errors";
 import cors from "cors";
 import { authRouter, usersRouter, groupsRouter, gamesRouter } from "./routers";
 import swaggerUI from "swagger-ui-express";
@@ -45,5 +52,10 @@ app.use("/authentication", authRouter);
 app.use("/users", usersRouter);
 app.use("/groups", groupsRouter);
 app.use("/games", gamesRouter);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.log(err);
+  res.status(500).send("something went wrong");
+});
 
 export { app };

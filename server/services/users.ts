@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -42,17 +42,24 @@ async function updateUser(
   email: string,
   password: string
 ) {
-  return await prisma.app_user.update({
-    where: {
-      id: parseInt(userId),
-    },
-    data: {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      password: password,
-    },
-  });
+  try {
+    return await prisma.app_user.update({
+      where: {
+        id: parseInt(userId),
+      },
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+      },
+    });
+  } catch (error) {
+    if(error.detail = "P2016") {
+      return null;
+    }
+    throw error;
+  }
 }
 
 async function deleteUser(userId: string) {

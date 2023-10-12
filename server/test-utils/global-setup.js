@@ -12,5 +12,8 @@ module.exports = async () => {
     .withWaitStrategy("flyway-1", Wait.forLogMessage(/^Successfully applied/))
     .up();
 
-  await new Promise((x) => setTimeout(x, 500));
+  await new Promise((x) => {
+    console.log("docker compose running");
+    setTimeout(x, 500)
+  });
 };
