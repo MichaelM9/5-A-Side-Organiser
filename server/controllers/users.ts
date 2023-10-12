@@ -46,9 +46,12 @@ async function updateExistingUser(req: Request, res: Response) {
     hashedPassword
   );
 
+  console.log("1");
   if (userUpdate) {
     return res.sendStatus(204);
   } else {
+    // console.log(userUpdate);
+    console.log("2");
     return res.sendStatus(404);
   }
 }

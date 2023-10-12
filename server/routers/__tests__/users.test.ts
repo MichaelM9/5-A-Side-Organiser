@@ -7,7 +7,7 @@ describe("/users", () => {
       await request(app)
         .get("/users")
         .set("Accept", "application/json")
-        .expect("Content-type", /json/)
+        .expect("Content-type", "application/json; charset=utf-8")
         .expect(200);
     });
   });
@@ -17,7 +17,7 @@ describe("/users", () => {
       await request(app)
         .get("/users/1")
         .set("Accept", "application/json")
-        .expect("Content-type", /json/)
+        .expect("Content-type", "application/json; charset=utf-8")
         .expect(200);
     });
 
@@ -116,70 +116,70 @@ describe("/users", () => {
         .post("/users")
         .set("Accept", "application/json")
         .send({})
-        .expect("Content-type", /json/)
+        .expect("Content-type", "application/json; charset=utf-8")
         .expect(400)
         .expect(verifyCreateUserValidation);
     });
   });
 
   describe("PUT /users/:userId", () => {
-    const userValidation = (res) => {
+      const verifyUpdateUserValidation = (res) => {
       expect(res.body).toEqual(
         expect.objectContaining({
           error: expect.arrayContaining([
             expect.objectContaining({
               location: "body",
-              param: "firstName",
+              path: "firstName",
               msg: "Invalid value",
             }),
             expect.objectContaining({
               location: "body",
-              param: "firstName",
+              path: "firstName",
               msg: "the first name must have minimum length of 1",
             }),
             expect.objectContaining({
               location: "body",
-              param: "lastName",
+              path: "lastName",
               msg: "Invalid value",
             }),
             expect.objectContaining({
               location: "body",
-              param: "lastName",
+              path: "lastName",
               msg: "the last name must have minimum length of 1",
             }),
             expect.objectContaining({
               location: "body",
-              param: "email",
+              path: "email",
               msg: "Invalid value",
             }),
             expect.objectContaining({
               location: "body",
-              param: "email",
+              path: "email",
               msg: "Invalid value",
             }),
             expect.objectContaining({
               location: "body",
-              param: "email",
+              path: "email",
               msg: "the email must be in a valid email format",
             }),
             expect.objectContaining({
               location: "body",
-              param: "password",
+              path: "password",
               msg: "Invalid value",
             }),
             expect.objectContaining({
               location: "body",
-              param: "password",
+              path: "password",
               msg: "the password should have min and max length between 8-16 characters",
             }),
             expect.objectContaining({
               location: "body",
-              param: "password",
+              path: "password",
               msg: "the password should have at least one number",
             }),
             expect.objectContaining({
               location: "body",
-              param: "password",
+              path: "password",
               msg: "the password should have at least one special character",
             }),
           ]),
@@ -204,11 +204,11 @@ describe("/users", () => {
 
     it("respond with 400 when user not updated", async () => {
       await request(app)
-        .post("/users/1")
+        .put("/users/1")
         .set("Accept", "application/json")
         .send({})
         .expect(400)
-        .expect(userValidation);
+        .expect(verifyUpdateUserValidation);
     });
 
     it("respond with 404 when no user to update", async () => {
@@ -220,7 +220,7 @@ describe("/users", () => {
       };
 
       await request(app)
-        .post("/users/1000")
+        .put("/users/1000")
         .set("Accept", "application/json")
         .send(userInput)
         .expect(404);

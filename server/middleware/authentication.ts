@@ -14,7 +14,7 @@ const authenticate = async (
   if (process.env.NODE_ENV === "test") return handleTest(res, next);
 
   if (
-    (req.path === "/authenticate" || req.path === "/users") &&
+    (req.path === "/authentication" || req.path === "/users") &&
     req.method == "POST"
   )
     return next();
