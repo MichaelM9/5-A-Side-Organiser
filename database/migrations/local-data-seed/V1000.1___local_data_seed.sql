@@ -10,21 +10,24 @@ DECLARE GAME_ID integer;
 
 BEGIN
 	
+	-- ?? User password = password1!
+	-- Test User password = Password1!
 	INSERT INTO app_user (first_name, last_name, email, password) VALUES
-		('Michael', 'Mackin', 'michaelmackin@email.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('John', 'Doe', 'johndoe@email.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Jack', 'Doe', 'jackdoe@email.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Jane', 'Doe', 'janedoe@email.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Xavi', 'Hernandez', 'xavi@barcelona.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Luca', 'Modric', 'lmodric@realmadrid.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Antoine', 'Griezmann', 'agriezmann@athletico.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Jesus', 'Navas', 'jnavas@sevilla.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Pep', 'Guardiola', 'pguardiola@mancity.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Mikel', 'Arteta', 'marteta@arsenal.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Mohamad', 'Salah', 'msalah@liverpool.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Marcus', 'Rashford', 'mrashford@manutd.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Harry', 'Kane', 'hkane@spurs.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G'),
-		('Reece', 'James', 'rjames@chelsea.com', '$2b$10$kUy1k9kft.OikBnS95bU/.eLLlyAY.hZbYZB2RkGVWjeEzF4mYQ0G');
+		('Michael', 'Mackin', 'michaelmackin@email.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('John', 'Doe', 'johndoe@email.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Jack', 'Doe', 'jackdoe@email.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Jane', 'Doe', 'janedoe@email.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Xavi', 'Hernandez', 'xavi@barcelona.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Luca', 'Modric', 'lmodric@realmadrid.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Antoine', 'Griezmann', 'agriezmann@athletico.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Jesus', 'Navas', 'jnavas@sevilla.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Pep', 'Guardiola', 'pguardiola@mancity.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Mikel', 'Arteta', 'marteta@arsenal.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Mohamad', 'Salah', 'msalah@liverpool.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Marcus', 'Rashford', 'mrashford@manutd.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Harry', 'Kane', 'hkane@spurs.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('Reece', 'James', 'rjames@chelsea.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe'),
+		('test', 'user', 'testuser@email.com', '$2b$10$3MFyK8Lsn/UNAfJgugLj/ea7Q71SbGaiYM5RAiuA9yT1JB1HzsrXe');
 
 	INSERT INTO user_group ("name") VALUES
 		('Unosquare Football Group'),

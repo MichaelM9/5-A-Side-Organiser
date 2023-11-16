@@ -1,5 +1,18 @@
 version: "3.4"
 services:
+  api:
+    profiles: ["dev"]
+    build:
+      context: ./server
+      dockerfile: Dockerfile.local
+    volumes:
+      - ./server:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - flyway
+    environment:
+      DATABASE_URL: "postgres://user:password@db:5432/postgres?schema=public"
   db:
     image: postgres:latest
     container_name: 5-a-side-organiser_db
